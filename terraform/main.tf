@@ -7,6 +7,11 @@ terraform {
   }
 }
 
+provider "google" {
+  region      = var.region
+  project     = var.project
+}
+
 data "hcp_packer_iteration" "vault" {
 	bucket_name = var.bucket
 	channel = var.channel
@@ -19,9 +24,27 @@ data "hcp_packer_image" "vault-image" {
 	region = var.region
 }
 
-resource "null_resource" "touch" {
-  triggers = {
-    please_redo = "1"
+resource "google_compute_instance" "vm" {
+  name         = "vault-vm"
+  machine_type = var.instance_type
+  zone         = var.region_zone
+  allow_stopping_for_update = true
+
+  boot_disk {
+    initialize_params {
+      image = data.hcp_packer_image.vault-image.cloud_image_id
+    }
+  }
+
+  network_interface {
+    network = "default"
+
+    access_config {
+      // Ephemeral IP
+    }
+  }
+  metadata = {
+    sshKeys = "var.ssh_user:var.ssh_pub_key"
   }
 }
 
