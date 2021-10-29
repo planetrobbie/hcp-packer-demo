@@ -19,6 +19,12 @@ data "hcp_packer_image" "vault-image" {
 	region = var.region
 }
 
+resource "null_resource" "touch" {
+  triggers = {
+    please_redo = "1"
+  }
+}
+
 output "vault-production-image-id" {
 	value = data.hcp_packer_image.vault-image.cloud_image_id
 }
