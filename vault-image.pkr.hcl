@@ -37,7 +37,7 @@ build {
 This image built on top of Ubuntu Minimal 2110 contains Vault binary 
     EOT
     labels = {
-      "vault-version"  = "1.8.4",
+      "target-use"  = "vault",
     }
   }
 
