@@ -28,7 +28,7 @@ resource "google_compute_instance" "vm" {
   name         = "vault-vm"
   machine_type = var.instance_type
   zone         = var.region_zone
-  allow_stopping_for_update = true
+  allow_stopping_for_update = false
 
   boot_disk {
     initialize_params {
