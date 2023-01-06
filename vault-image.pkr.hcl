@@ -11,7 +11,7 @@ packer {
 
 variable "project_id" {
   type    = string
-  default = "sb-vault"
+  default = "hc-5b7fed7760b3436abf1b70b347b"
 }
 
 variable "zone" {
@@ -23,7 +23,7 @@ source "googlecompute" "vault" {
   image_family        = "vault"
   image_name          = "ubuntu-vault-${legacy_isotime("2006-01-02-030405")}"
   project_id          = "${var.project_id}"
-  source_image_family = "ubuntu-minimal-2110"
+  source_image_family = "ubuntu-2210-amd64"
   ssh_username        = "ubuntu"
   zone                = "${var.zone}"
 }
@@ -36,7 +36,7 @@ build {
     description = <<EOT
 This image built on top of Ubuntu Minimal 2110 contains Vault binary 
     EOT
-    labels = {
+    bucket_labels = {
       "target-use"  = "vault",
     }
   }
