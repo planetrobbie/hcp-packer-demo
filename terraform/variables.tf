@@ -8,7 +8,7 @@ variable "channel" {
 
 variable "region" {
   description = "region where to operate"
-  default = "europe-west1-c"
+  default = "europe-west1-a"
 }
 
 variable "region_zone" {
